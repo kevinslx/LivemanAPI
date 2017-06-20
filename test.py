@@ -7,7 +7,7 @@ import time
 import requests
 
 path = os.path.abspath('.')
-excelPath = path + '/Data/weather.xlsx'
+excelPath = path + '/Data/case.xlsx'
 
 
 class ExcelData(object):
@@ -20,16 +20,18 @@ class ExcelData(object):
 	def get_case_list(self):
 		exceldata = xlrd.open_workbook(self.excelFile)
 		sheet = exceldata.sheet_by_index(0)
-		ID = sheet.col_values(0, 1)
-		CityName = sheet.col_values(2, 1)
-		CountryName = sheet.col_values(3, 1)
-		ExpResult = sheet.col_values(4, 1)
-		for i in range(len(ID)):
+		caseid = sheet.col_values(0, 1)
+		host = sheet.col_values(2, 1)
+		url = sheet.col_values(3, 1)
+		method = sheet.col_values(4, 1)
+		params = sheet.col_values(5, 1)
+		for i in range(len(caseid)):
 			temp = {}
-			temp['ID'] = ID[i]
-			temp['CityName'] = CityName[i]
-			temp['CountryName'] = CountryName[i]
-			temp['ExpResult'] = ExpResult[i]
+			temp['CaseID'] = int(caseid[i])
+			temp['Host'] = host[i]
+			temp['URL'] = url[i]
+			temp['Method'] = method[i]
+			temp['Params'] = params[i]
 			self.caseList.append(temp)
 		print(self.caseList)
 		return self.caseList
@@ -49,18 +51,24 @@ class ExcelData(object):
 		exceldata.save(self.excelFile)
 
 
+class TestAPI(object):
+	def __init__(self, caselist):
+		self.caselist = caselist
+
+	def test_API(self):
+		for case in self.caselist:
+			paramstemp = case['Params'].split(':')
+			if paramstemp == ['']:
+				params = {}
+			else:
+				params = {paramstemp[0]:paramstemp[1]}
+			r = requests.request(method=case['Method'], url=case['Host']+case['URL'], params=params)
+			print(r.text)
+
+
 excel = ExcelData(excelPath)
-excel.get_case_list()
-excel.write_case_result()
+caselist = excel.get_case_list()
+#excel.write_case_result()
 
-
-class GetWeather(object):
-	def __init__(self, requestURL, requestBody, requestHeaders):
-		self.requestURL = requestURL
-		self.requestBody = requestBody
-		self.requestHeaders = requestHeaders
-		self.requestResult = {}
-
-	def get_weather(self):
-		starttime = time.time()
-		tmp = urllib.request.
+test = TestAPI(caselist)
+test.test_API()
