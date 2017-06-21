@@ -1,22 +1,22 @@
 import requests
 
 host = [
-	'http://gene.lesports.com/api',
-	'http://gene.lesports.com/api',
+	'http://shoot.lesports.com/',
+	'http://shoot.lesports.com/',
 	'http://gene.lesports.com/api',
 	'http://gene.lesports.com/api'
 	]
 
 url = [
-	'/liveman/version/latest',
-	'/liveman/photo/focuspic',
+	'/sticker/getlist',
+	'/music/getlist',
 	'/liveman/user/569dee74e4b041f5e53fe1d8/follow',
 	'/liveman/user/569dee74e4b041f5e53fe1d8/unfollow'
 	]
 
 method = ['GET', 'GET', 'POST', 'POST']
 
-request_data = [{'appType':'2'},
+request_data = [{},
                 {},
                 {"access_token":"140XXXQQjm53qt7m5bg3m5ym1qHDlq3xGm5ym1hr2iv5Q3RYv6qy5KvdTNK1S3U4pID5pJlAm1sm2SuwPr3VE738hEvYm1zRfy2co9m1jHO27DLZUm53zMUF5m2ngm4"},
 				{"access_token":"140XXXQQjm53qt7m5bg3m5ym1qHDlq3xGm5ym1hr2iv5Q3RYv6qy5KvdTNK1S3U4pID5pJlAm1sm2SuwPr3VE738hEvYm1zRfy2co9m1jHO27DLZUm53zMUF5m2ngm4"}
