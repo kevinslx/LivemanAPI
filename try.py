@@ -1,6 +1,7 @@
 import unittest
 import requests
 import json
+import pymysql
 
 
 class TestGetFocusList(unittest.TestCase):
@@ -16,6 +17,7 @@ class TestGetFocusList(unittest.TestCase):
 	def test_getFocusList(self):
 		r = requests.get(url=self.host+self.url, params=self.params)
 		print(r.text)
+
 
 
 
